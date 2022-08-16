@@ -1,9 +1,11 @@
-//i guess my code will only work if we've to find only one saddle point lol
+//Spiral traversal
+
+
 #include<iostream>
 using namespace std;
 int main()
 {
-    int r, c;
+     int r, c;
     cout << "Enter the number of rows in your matrix " << endl;
     cin >> r;
     cout << "Enter the number of columns in your matrix " << endl;
@@ -28,50 +30,54 @@ int main()
         }
         cout << endl;
     }
-    int min[r];
-    for(int i=0;i<r;i++)
-    {
-        
-        min[i] = arr[i][0];
-   
-        for(int j=0;j<c;j++)
-        {
-            if(min[i]>=arr[i][j])
-            {
-                min[i]=arr[i][j];
-               
-            }
-        }
+    cout<<endl;
     
-    }
-    
-    int max[c];
-    for(int i=0;i<c;i++)
+    int top=0;
+    int bottom=r-1;
+    int left=0;
+    int right=c-1;
+    int dir=0;
+    while((top<=bottom) && (left<=right))
     {
-       
-        max[i] = arr[0][i];
-       
-        for(int j=0;j<r;j++)
+        if(dir==0)
         {
-            if(max[i]<=arr[j][i])
+            for(int i=left;i<=right;i++)
             {
-                max[i]=arr[j][i];
-                
+                cout<<arr[top][i]<<" ";
             }
+            top++;
+            dir=1;
         }
-        
-    }
-    
-    for(int i=0;i<r;i++)
-    {
-        for(int j=0;j<c;j++)
+        else if(dir==1)
         {
-            if(min[j]==max[i])
+            for(int i=top;i<=bottom;i++)
             {
-                cout<<min[j]<<" is a saddle point";
+                cout<<arr[i][right]<<" ";
             }
+            right--;
+            dir=2;
+        }
+        else if(dir==2)
+        {
+            for(int i=right;i>=left;i--)
+            {
+                cout<<arr[bottom][i]<<" ";
+            }
+            bottom--;
+            dir=3;
+        }
+        else if(dir==3)
+        {
+            for(int i=bottom;i>=top;i--)
+            {
+                cout<<arr[i][left]<<" ";
+            }
+            dir=1;
+            left++;
         }
     }
+
+
 
     return 0;
 }
